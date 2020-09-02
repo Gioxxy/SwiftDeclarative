@@ -22,7 +22,7 @@ class ViewController: UIViewController {
                     children: [
                         Button(
                             height: 50,
-                            title: "Button asd asd asd",
+                            title: Text("Button asd asd asd"),
                             color: .orange,
                             onTap: {
                                 print("Tap button 1")
@@ -30,8 +30,7 @@ class ViewController: UIViewController {
                         ),
                         Button(
                             width: 200,
-                            title: "Button 2",
-                            titleColor: .white,
+                            title: Text("Button 2", color: .white),
                             color: .blue,
                             shape: .stadium,
                             onTap: {

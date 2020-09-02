@@ -19,8 +19,7 @@ class Button: UIButton {
     
     let width: CGFloat?
     let height: CGFloat?
-    let title: String
-    let titleColor: UIColor
+    let title: Text
     let titleInset: UIEdgeInsets
     let color: UIColor
     let shape: ButtonShape
@@ -29,8 +28,7 @@ class Button: UIButton {
     init(
         width: CGFloat? = nil,
         height: CGFloat? = nil,
-        title: String,
-        titleColor: UIColor = .black,
+        title: Text,
         titleInset: UIEdgeInsets = UIEdgeInsets.symmetric(vertical: 10, horizontal: 10),
         color: UIColor,
         shape: ButtonShape = .rect,
@@ -40,7 +38,6 @@ class Button: UIButton {
         self.width = width
         self.height = height
         self.title = title
-        self.titleColor = titleColor
         self.titleInset = titleInset
         self.color = color
         self.shape = shape
@@ -120,7 +117,7 @@ class Button: UIButton {
     }
     
     private func addText(){
-        let text = Center(child: Text(title, color: titleColor))
+        let text = Center(child: title)
         self.addSubview(text)
         text.layout(parent: self)
     }

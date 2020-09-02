@@ -10,13 +10,43 @@ import UIKit
 
 // MARK: Button
 class Button: UIButton {
-    let title: String
-    let color: UIColor
     
-    init(title: String, color: UIColor, onTap: @escaping ()->()){
+    enum ButtonShape{
+        case rect
+        case oval
+        case stadium
+    }
+    
+    let width: CGFloat?
+    let height: CGFloat?
+    let title: String
+    let titleColor: UIColor
+    let titleInset: UIEdgeInsets
+    let color: UIColor
+    let shape: ButtonShape
+    let borderRadius: CGFloat
+    
+    init(
+        width: CGFloat? = nil,
+        height: CGFloat? = nil,
+        title: String,
+        titleColor: UIColor = .black,
+        titleInset: UIEdgeInsets = UIEdgeInsets.symmetric(vertical: 10, horizontal: 10),
+        color: UIColor,
+        shape: ButtonShape = .rect,
+        borderRadius: CGFloat = 5,
+        onTap: @escaping ()->()
+    ){
+        self.width = width
+        self.height = height
         self.title = title
+        self.titleColor = titleColor
+        self.titleInset = titleInset
         self.color = color
+        self.shape = shape
+        self.borderRadius = borderRadius
         super.init(frame: .zero)
+        
         self.onTap(onTap)
         self.backgroundColor = color
         self.isUserInteractionEnabled = true
@@ -30,14 +60,67 @@ class Button: UIButton {
     
     @objc override func layout(parent: UIView) {
         self.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            self.widthAnchor.constraint(equalToConstant: 100),
-            self.heightAnchor.constraint(equalToConstant: 50)
-        ])
+        
+        if let width = width, let height = height {
+            NSLayoutConstraint.activate([
+                self.widthAnchor.constraint(equalToConstant: width + titleInset.left + titleInset.right),
+                self.heightAnchor.constraint(equalToConstant: height + titleInset.top + titleInset.bottom)
+            ])
+        } else {
+            if let child = self.subviews.first {
+                child.translatesAutoresizingMaskIntoConstraints = false
+
+                if let width = width {
+                    NSLayoutConstraint.activate([
+                        self.widthAnchor.constraint(equalToConstant: width + titleInset.left + titleInset.right),
+                        self.topAnchor.constraint(equalTo: child.topAnchor, constant: titleInset.top),
+                        self.bottomAnchor.constraint(equalTo: child.bottomAnchor, constant: titleInset.bottom),
+                    ])
+                } else if let height = height {
+                    NSLayoutConstraint.activate([
+                        self.heightAnchor.constraint(equalToConstant: height + titleInset.top + titleInset.bottom),
+                        self.leadingAnchor.constraint(equalTo: child.leadingAnchor, constant: titleInset.left),
+                        self.trailingAnchor.constraint(equalTo: child.trailingAnchor, constant: titleInset.right),
+                    ])
+                } else {
+                    NSLayoutConstraint.activate([
+                        self.topAnchor.constraint(equalTo: child.topAnchor, constant: titleInset.top),
+                        self.bottomAnchor.constraint(equalTo: child.bottomAnchor, constant: titleInset.bottom),
+                        self.leadingAnchor.constraint(equalTo: child.leadingAnchor, constant: titleInset.left),
+                        self.trailingAnchor.constraint(equalTo: child.trailingAnchor, constant: titleInset.right),
+                    ])
+                }
+            }
+        }
+        
     }
     
-    func addText(){
-        let text = Center(child: Text(title))
+    private func setShadow(){
+        self.layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.25).cgColor
+        self.layer.shadowOffset = CGSize(width: 0.0, height: 2.0)
+        self.layer.shadowOpacity = 1.0
+        self.layer.shadowRadius = 0.0
+        self.layer.masksToBounds = false
+    }
+    
+    private func setBorders(){
+        switch shape {
+        case .rect:
+            self.layer.cornerRadius = borderRadius
+        case .oval:
+            self.layer.cornerRadius = max(self.frame.width, self.frame.height) / 2
+        case .stadium:
+            self.layer.cornerRadius = min(self.frame.width, self.frame.height) / 2
+        }
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        setBorders()
+    }
+    
+    private func addText(){
+        let text = Center(child: Text(title, color: titleColor))
         self.addSubview(text)
         text.layout(parent: self)
     }

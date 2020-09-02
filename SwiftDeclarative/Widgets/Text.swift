@@ -11,10 +11,11 @@ import UIKit
 // MARK: Text
 class Text: UILabel {
     
-    init(_ text: String) {
+    init(_ text: String, color: UIColor = .black) {
         super.init(frame: .zero)
         
         self.text = text
+        self.textColor = color
         self.numberOfLines = 0
         //self.isUserInteractionEnabled = false
     }
@@ -26,5 +27,12 @@ class Text: UILabel {
     @objc override func layout(parent: UIView) {
         self.translatesAutoresizingMaskIntoConstraints = false
         self.sizeToFit()
+        
+        NSLayoutConstraint.activate([
+            self.leadingAnchor.constraint(greaterThanOrEqualTo: parent.leadingAnchor),
+            self.trailingAnchor.constraint(lessThanOrEqualTo: parent.trailingAnchor),
+            self.topAnchor.constraint(greaterThanOrEqualTo: parent.topAnchor),
+            self.bottomAnchor.constraint(lessThanOrEqualTo: parent.bottomAnchor),
+        ])
     }
 }

@@ -35,7 +35,11 @@ class Center: PassThroughView {
                 self.topAnchor.constraint(equalTo: child.topAnchor),
                 self.bottomAnchor.constraint(equalTo: child.bottomAnchor),
                 self.centerXAnchor.constraint(equalTo: parent.centerXAnchor),
-                self.centerYAnchor.constraint(equalTo: parent.centerYAnchor)
+                self.centerYAnchor.constraint(equalTo: parent.centerYAnchor),
+                self.leadingAnchor.constraint(greaterThanOrEqualTo: parent.leadingAnchor),
+                self.trailingAnchor.constraint(lessThanOrEqualTo: parent.trailingAnchor),
+                self.topAnchor.constraint(greaterThanOrEqualTo: parent.topAnchor),
+                self.bottomAnchor.constraint(lessThanOrEqualTo: parent.bottomAnchor)
             ])
         }
     }

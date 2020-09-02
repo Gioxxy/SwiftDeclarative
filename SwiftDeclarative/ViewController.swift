@@ -21,19 +21,24 @@ class ViewController: UIViewController {
                     spacing: 20,
                     children: [
                         Button(
-                            title: "Button 1",
+                            height: 50,
+                            title: "Button asd asd asd",
                             color: .orange,
                             onTap: {
                                 print("Tap button 1")
                             }
                         ),
                         Button(
+                            width: 200,
                             title: "Button 2",
+                            titleColor: .white,
                             color: .blue,
+                            shape: .stadium,
                             onTap: {
                                 print("Tap button 2")
                             }
-                        )
+                        ),
+                        Text("Asdd")
                     ]
                 )
             )

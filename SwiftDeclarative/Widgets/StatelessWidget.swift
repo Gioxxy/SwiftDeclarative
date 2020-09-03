@@ -8,6 +8,7 @@
 
 import UIKit
 
+// MARK: StatelessWidget
 class StatelessWidget: PassThroughView {
     init(){
         super.init(frame: .zero)

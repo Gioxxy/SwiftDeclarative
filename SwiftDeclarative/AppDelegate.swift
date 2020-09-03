@@ -11,10 +11,21 @@ import UIKit
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-
+    var window: UIWindow?
+    let app = App()
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        let navigationController = UINavigationController()
+        navigationController.viewControllers = [app]
+        app.navigationController?.navigationBar.isHidden = true
+        
+        window = UIWindow(frame: UIScreen.main.bounds)
+        window?.rootViewController = navigationController
+        Navigator.currentViewController = app
+        window?.makeKeyAndVisible()
+        app.build()
+        
         return true
     }
 
@@ -34,4 +45,3 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
 }
-

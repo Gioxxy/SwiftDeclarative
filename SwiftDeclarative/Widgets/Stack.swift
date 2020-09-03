@@ -11,7 +11,7 @@ import UIKit
 // MARK: Stack
 class Stack: UIStackView {
     
-    init<T: UIView>(direction: NSLayoutConstraint.Axis, alignment: UIStackView.Alignment, spacing: CGFloat, children: [T]){
+    init<T: View>(direction: NSLayoutConstraint.Axis, alignment: UIStackView.Alignment, spacing: CGFloat, children: [T]){
         super.init(frame: .zero)
         
         self.alignment = alignment
@@ -24,11 +24,11 @@ class Stack: UIStackView {
         })
     }
     
-    required init(coder: NSCoder) {
+    @available(*, unavailable) required init(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    @objc override func layout(parent: UIView) {
+    @objc override func layout(parent: View) {
         self.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             self.leadingAnchor.constraint(equalTo: parent.leadingAnchor),

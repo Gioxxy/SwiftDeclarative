@@ -11,24 +11,24 @@ import UIKit
 // MARK: SafeArea
 class SafeArea: PassThroughView {
     
-    init<T: UIView>(child: T){
+    init<T: View>(child: T){
         super.init(frame: .zero)
         
         addSubview(child)
         child.layout(parent: self)
     }
     
-    required init?(coder: NSCoder) {
+    @available(*, unavailable) required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    @objc override func layout(parent: UIView) {
+    @objc override func layout(parent: View) {
         self.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            self.leadingAnchor.constraint(equalTo: parent.safeLeadingAnchor, constant: 1),
-            self.topAnchor.constraint(equalTo: parent.safeTopAnchor, constant: 1),
-            self.trailingAnchor.constraint(equalTo: parent.safeTrailingAnchor, constant: 1),
-            self.bottomAnchor.constraint(equalTo: parent.safeBottomAnchor, constant: 1)
+            self.leadingAnchor.constraint(equalTo: parent.safeLeadingAnchor),
+            self.topAnchor.constraint(equalTo: parent.safeTopAnchor),
+            self.trailingAnchor.constraint(equalTo: parent.safeTrailingAnchor),
+            self.bottomAnchor.constraint(equalTo: parent.safeBottomAnchor)
         ])
     }
 }

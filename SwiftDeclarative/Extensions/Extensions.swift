@@ -30,8 +30,10 @@ extension UIControl {
 }
 
 // MARK: - UIView
-extension UIView {
-    @objc func layout(parent: UIView) {}
+typealias View = UIView
+
+extension View {
+    @objc func layout(parent: View) {}
     
     var safeTopAnchor: NSLayoutYAxisAnchor {
       if #available(iOS 11.0, *) {

@@ -11,19 +11,18 @@ import UIKit
 // MARK: Center
 class Center: PassThroughView {
     
-    init<T: UIView>(child: T){
+    init<T: View>(child: T){
         super.init(frame: .zero)
-        
         
         addSubview(child)
         child.layout(parent: self)
     }
     
-    required init?(coder: NSCoder) {
+    @available(*, unavailable) required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    @objc override func layout(parent: UIView) {
+    @objc override func layout(parent: View) {
         
         if let child = self.subviews.first {
             self.translatesAutoresizingMaskIntoConstraints = false

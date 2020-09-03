@@ -20,19 +20,17 @@ class Text: UILabel {
         //self.isUserInteractionEnabled = false
     }
     
-    required init?(coder: NSCoder) {
+    @available(*, unavailable) required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    @objc override func layout(parent: UIView) {
+    @objc override func layout(parent: View) {
         self.translatesAutoresizingMaskIntoConstraints = false
         self.sizeToFit()
         
         NSLayoutConstraint.activate([
             self.leadingAnchor.constraint(greaterThanOrEqualTo: parent.leadingAnchor),
-            self.trailingAnchor.constraint(lessThanOrEqualTo: parent.trailingAnchor),
             self.topAnchor.constraint(greaterThanOrEqualTo: parent.topAnchor),
-            self.bottomAnchor.constraint(lessThanOrEqualTo: parent.bottomAnchor),
         ])
     }
 }

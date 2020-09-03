@@ -9,7 +9,7 @@
 import UIKit
 
 // MARK: PassThroughView
-class PassThroughView: UIView {
+class PassThroughView: View {
     override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
         for subview in subviews {
             if !subview.isHidden && subview.isUserInteractionEnabled && subview.point(inside: convert(point, to: subview), with: event) {

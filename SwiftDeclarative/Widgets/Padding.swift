@@ -12,7 +12,7 @@ import UIKit
 class Padding: PassThroughView {
     let padding: UIEdgeInsets
     
-    init<T: UIView>(_ padding: UIEdgeInsets, child: T){
+    init<T: View>(_ padding: UIEdgeInsets, child: T){
         self.padding = padding
         super.init(frame: .zero)
         
@@ -22,11 +22,11 @@ class Padding: PassThroughView {
         child.layout(parent: self)
     }
     
-    required init?(coder: NSCoder) {
+    @available(*, unavailable) required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    @objc override func layout(parent: UIView) {
+    @objc override func layout(parent: View) {
         self.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             self.leadingAnchor.constraint(equalTo: parent.leadingAnchor, constant: padding.left),

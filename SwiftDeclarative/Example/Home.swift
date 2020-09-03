@@ -1,19 +1,25 @@
 //
-//  ViewController.swift
+//  Home.swift
 //  SwiftDeclarative
 //
-//  Created by Gionatan Cernusco on 25/08/2020.
+//  Created by Gionatan Cernusco on 02/09/2020.
 //  Copyright © 2020 Gionatan Cernusco. All rights reserved.
 //
 
 import UIKit
 
-class ViewController: UIViewController {
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        let layout = SafeArea(
+class Home: StatefulWidget {
+    let onButton1DidTap: (() -> Void)?
+    
+    var color: Bool = true
+    
+    init(onButton1DidTap: (() -> Void)? = nil) {
+        self.onButton1DidTap = onButton1DidTap
+        super.init()
+    }
+    
+    override func build() -> UIView {
+        return SafeArea(
             child: Center(
                 child: Stack(
                     direction: .vertical,
@@ -21,11 +27,14 @@ class ViewController: UIViewController {
                     spacing: 20,
                     children: [
                         Button(
-                            height: 50,
-                            title: Text("Button asd asd asd"),
-                            color: .orange,
+                            height: 30,
+                            title: Text("Button 1"),
+                            color: color ? .orange : .green,
                             onTap: {
                                 print("Tap button 1")
+                                self.color = !self.color
+                                self.setState()
+                                self.onButton1DidTap?()
                             }
                         ),
                         Button(
@@ -42,8 +51,5 @@ class ViewController: UIViewController {
                 )
             )
         )
-        
-        self.view.addSubview(layout)
-        layout.layout(parent: self.view)
     }
 }

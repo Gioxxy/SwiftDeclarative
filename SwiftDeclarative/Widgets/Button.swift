@@ -51,11 +51,11 @@ class Button: UIButton {
         addText()
     }
     
-    required init?(coder: NSCoder) {
+    @available(*, unavailable) required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    @objc override func layout(parent: UIView) {
+    @objc override func layout(parent: View) {
         self.translatesAutoresizingMaskIntoConstraints = false
         
         if let width = width, let height = height {

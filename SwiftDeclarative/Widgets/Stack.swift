@@ -33,6 +33,8 @@ class Stack: UIStackView {
         NSLayoutConstraint.activate([
             self.leadingAnchor.constraint(equalTo: parent.leadingAnchor),
             self.topAnchor.constraint(equalTo: parent.topAnchor),
+            self.trailingAnchor.constraint(equalTo: parent.trailingAnchor),
+            self.bottomAnchor.constraint(equalTo: parent.bottomAnchor),
         ])
     }
 }

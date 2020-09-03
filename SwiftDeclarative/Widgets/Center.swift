@@ -11,7 +11,16 @@ import UIKit
 // MARK: Center
 class Center: PassThroughView {
     
-    init<T: View>(child: T){
+    enum Axis {
+        case horizontal
+        case vertical
+        case both
+    }
+    
+    let axis: Center.Axis
+    
+    init<T: View>(axis: Center.Axis = .both, child: T){
+        self.axis = axis
         super.init(frame: .zero)
         
         addSubview(child)
@@ -33,13 +42,31 @@ class Center: PassThroughView {
                 self.trailingAnchor.constraint(equalTo: child.trailingAnchor),
                 self.topAnchor.constraint(equalTo: child.topAnchor),
                 self.bottomAnchor.constraint(equalTo: child.bottomAnchor),
-                self.centerXAnchor.constraint(equalTo: parent.centerXAnchor),
-                self.centerYAnchor.constraint(equalTo: parent.centerYAnchor),
-                self.leadingAnchor.constraint(greaterThanOrEqualTo: parent.leadingAnchor),
-                self.trailingAnchor.constraint(lessThanOrEqualTo: parent.trailingAnchor),
-                self.topAnchor.constraint(greaterThanOrEqualTo: parent.topAnchor),
-                self.bottomAnchor.constraint(lessThanOrEqualTo: parent.bottomAnchor)
             ])
+            
+            switch axis {
+            case .horizontal:
+                NSLayoutConstraint.activate([
+                    self.centerXAnchor.constraint(equalTo: parent.centerXAnchor),
+                    self.leadingAnchor.constraint(greaterThanOrEqualTo: parent.leadingAnchor),
+                    self.trailingAnchor.constraint(lessThanOrEqualTo: parent.trailingAnchor),
+                ])
+            case .vertical:
+                NSLayoutConstraint.activate([
+                    self.centerYAnchor.constraint(equalTo: parent.centerYAnchor),
+                    self.topAnchor.constraint(greaterThanOrEqualTo: parent.topAnchor),
+                    self.bottomAnchor.constraint(lessThanOrEqualTo: parent.bottomAnchor)
+                ])
+            case .both:
+                NSLayoutConstraint.activate([
+                    self.centerXAnchor.constraint(equalTo: parent.centerXAnchor),
+                    self.centerYAnchor.constraint(equalTo: parent.centerYAnchor),
+                    self.leadingAnchor.constraint(greaterThanOrEqualTo: parent.leadingAnchor),
+                    self.trailingAnchor.constraint(lessThanOrEqualTo: parent.trailingAnchor),
+                    self.topAnchor.constraint(greaterThanOrEqualTo: parent.topAnchor),
+                    self.bottomAnchor.constraint(lessThanOrEqualTo: parent.bottomAnchor)
+                ])
+            }
         }
     }
 }
